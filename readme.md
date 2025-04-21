@@ -4,11 +4,13 @@ ScriptUtils package is helper library that contains the scripts used across the 
 
 ## 📁 Structure
 
-UserProject/
-└─ScriptUtils/
+```
+UserProject/ 
+└─ScriptUtils/ 
   ├── Core/       
   ├── Scripts/    
-  └── Config/     
+  └── Config/
+```
 
 ## 📂 Folder Descriptions
 
