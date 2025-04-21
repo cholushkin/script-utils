@@ -3,18 +3,26 @@
 ScriptUtils package is helper library that contains the scripts used across the Unity projects. These are primarily Python and Windows batch (.cmd/.bat) files designed to automate and streamline development workflows.
 
 ## 📁 Structure
-Edit
-Helpers/
-├── Core/       
-├── Scripts/    
-└── Config/     
+UserProject/
+└─ScriptUtils/
+  ├── Core/       
+  ├── Scripts/    
+  └── Config/     
 
 ## 📂 Folder Descriptions
-Core/
+
+*Core/* 
 Contains the core logic and implementation of helper utilities. These modules are not intended to be executed directly but are used as building blocks for scripts in the Scripts/ folder.
 
-Scripts/
+*Scripts/*
 Contains user-executable scripts. These typically serve as entry points and are composed by combining and calling logic from the Core/ directory. Each script solves a specific task like project setup, builds, cleaning temporary files, etc.
 
-Config/
+*Config/*
 Stores user- or machine-specific settings and environment variables. Useful for maintaining local configuration without affecting shared scripts.
+
+
+## Utilities
+
+- BackupUtil 
+- PromptWithContextUtil
+- UdioUtil
