@@ -5,10 +5,11 @@ ScriptUtils package is helper library that contains the scripts used across the 
 ## 📁 Structure
 
 ```
+
 UserProject/ 
+├─UserScripts/    
 └─ScriptUtils/ 
   ├── Core/       
-  ├── UserScripts/    
   ├── UserScriptsExamples/    
   └── Config/
 ```
@@ -19,7 +20,7 @@ UserProject/
 Contains the core logic and implementation of helper utilities. These modules are not intended to be executed directly but are used as building blocks for scripts in the Scripts/ folder.
 
 *UserScripts/*
-Contains user-executable scripts. These typically serve as entry points and are composed by combining and calling logic from the Core/ directory. Each script solves a specific task like project setup, builds, cleaning temporary files, etc.
+Contains user-executable scripts. These typically serve as entry points and are composed by combining and calling logic from the Core/ directory. Each script solves a specific task like project setup, builds, cleaning temporary files, importing assets to Unity, etc. This folder is under source control of root project.
 
 *UserScriptsExamples/*
 Contains user-executable scripts examples.
