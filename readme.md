@@ -3,6 +3,7 @@
 ScriptUtils package is helper library that contains the scripts used across the Unity projects. These are primarily Python and Windows batch (.cmd/.bat) files designed to automate and streamline development workflows.
 
 ## 📁 Structure
+
 UserProject/
 └─ScriptUtils/
   ├── Core/       
