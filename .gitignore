@@ -1,3 +1,4 @@
 /Core/__pycache__
 /Config/user_config.json
 /Core/BackupUtil/__pycache__
+/Core/PromptContextCollector/__pycache__
