@@ -101,19 +101,18 @@ class PromptContextCollector:
 --------------------------------------------------
 // --- Prompt ---
 
-- You are reviewing python scripts for the tool responsible to collect sources and prepare prompt for AI.
-- Create a clean and clear `README.md` file that includes the following sections:
+- You are reviewing Python scripts for a tool designed to collect source files and generate an AI-ready prompt.
+- Your task is to create a well-structured and user-friendly `README.md` that includes the following sections:
 
 ## Introduction
-- Briefly describe what script does from user perspective.
-- Mention the purpose and general intent.
+- Provide a brief overview of the tool from the user's perspective.
+- Explain its purpose and the problem it solves.
 
-## Features 
-- Bullet point the key aspects of the script
+## Features
+- List the key capabilities of the tool as bullet points.
 
 ## Summary
-- Write a concise summary 
-
+- Conclude with a concise summary highlighting the tool’s value and primary use case.
 
 Also:
-- Give me 2 versions (concise and more detailed)
+- Provide two versions of your response: one concise and one more detailed.

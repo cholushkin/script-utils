@@ -2,3 +2,5 @@
 /Config/user_config.json
 /Core/BackupUtil/__pycache__
 /Core/PromptContextCollector/__pycache__
+/Core/Udio/__pycache__
+/Core/Udio/Effects/__pycache__

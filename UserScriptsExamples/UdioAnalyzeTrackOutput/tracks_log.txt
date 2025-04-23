@@ -1,0 +1,24 @@
+🔍 Searching for MP3 files...
+
+📂 Searching in: d:\projects\dev\ScriptUtils\UdioSources/tracks
+🎵 Ambient Echoes 1.mp3 [1:59]  🎛️ 🔥:0.5 😊:0.5 🎵:0.5 ✨:2
+🎵 Ambient Echoes 2.mp3 [2:04]  🎛️ 🔥:0.6 😊:0.5 🎵:0.4 ✨:2
+🎵 Ambient Reflections 1.mp3 [2:11]  🔥:0.5 😊:0.6 🎵:0.4 ✨:2
+🎵 Ambient Reflections 2.mp3 [2:11]  🔥:0.5 😊:0.4 🎵:0.4 ✨:2
+🎵 Ambient Reverie 1.mp3 [2:11]  🔥:0.5 😊:0.5 🎵:0.4 ✨:1
+🎵 Bittersweet dream 1.mp3 [2:11]  🎛️ 🔥:0.3 😊:0.4 🎵:0.3 ✨:1
+
+💾 Saving meta file: d:\projects\dev\ScriptUtils\ScriptUtils/UserScriptsExamples/UdioAnalyzeTrackOutput/tracks_meta.json
+
+=== Summary ===
+🎼 Total MP3 files found: 6
+💾 Total Space Occupied: 17.59 MB
+⏱️ Total Duration: 00:12:47
+
+📏 Estimated Total Size at Different Bitrates:
+📡 48k: 4.49 MB
+📡 128k: 11.98 MB
+
+🕒 Execution Time: 00:00:00
+
+✅ Finished processing all files.
