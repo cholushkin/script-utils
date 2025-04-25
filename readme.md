@@ -5,7 +5,6 @@ ScriptUtils package is helper library that contains the scripts used across the 
 ## 📁 Structure
 
 ```
-
 UserProject/ 
 ├─UserScripts/    
 └─ScriptUtils/ 
@@ -27,6 +26,10 @@ Contains user-executable scripts examples.
 
 *Config/*
 Stores user- or machine-specific settings and environment variables. Useful for maintaining local configuration without affecting shared scripts.
+
+## Folder Usage Recap
+✅ UserScripts - Real, production-ready entry point scripts (under source control)
+📌 All paths in scripts should be interpreted relative to: UserProject folder (example: d:\projects\dev\UserProject). This is considred as a root folder of the project.
 
 
 ## Utilities
