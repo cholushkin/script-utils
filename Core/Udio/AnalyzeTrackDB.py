@@ -3,16 +3,13 @@ import json
 import hashlib
 import time
 from mutagen.mp3 import MP3
-from pydub import AudioSegment
 
 class AnalyzeTrackDB:
-    def __init__(self, look_folders, output_json, output_txt, estimate_bitrates, detect_abrupt_end=False):
+    def __init__(self, look_folders, output_txt, estimate_bitrates):
         self.project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))  # project root
-        self.output_json = os.path.join(self.project_root, output_json)
         self.output_txt = os.path.join(self.project_root, output_txt)
         self.look_folders = [os.path.join(self.project_root, folder) for folder in look_folders]
         self.estimate_bitrates = estimate_bitrates
-        self.detect_abrupt_end = detect_abrupt_end
         self.logs = []
         self.track_data = []
 
@@ -34,30 +31,21 @@ class AnalyzeTrackDB:
         except Exception:
             return 0, "Unknown"
 
-    def detect_abrupt_end(self, file_path, threshold_db=-20, check_duration_ms=300):
-        try:
-            audio = AudioSegment.from_mp3(file_path)
-            if len(audio) < check_duration_ms:
-                return False
-            last_part = audio[-check_duration_ms:]
-            return last_part.dBFS > threshold_db
-        except Exception:
-            return False
-
-    def read_track_metadata(self, txt_file):
+    def read_track_metadata_from_json(self, json_file):
         metadata = {"energy": None, "mood": None, "pop": None, "stars": None}
-        if os.path.exists(txt_file):
+        if os.path.exists(json_file):
             try:
-                with open(txt_file, "r", encoding="utf-8") as f:
-                    lines = f.readlines()
-                    for line in lines:
-                        parts = line.strip().split()
-                        if len(parts) == 2:
-                            key, value = parts
-                            if key in metadata:
-                                metadata[key] = float(value)
+                with open(json_file, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    if "tags" in data:
+                        metadata.update({
+                            "energy": data["tags"].get("energy"),
+                            "mood": data["tags"].get("mood"),
+                            "pop": data["tags"].get("pop"),
+                            "stars": data["tags"].get("stars")
+                        })
             except Exception as e:
-                self.log(f"Error reading {txt_file}: {e}")
+                self.log(f"⚠️ Error reading {json_file}: {e}")
         return metadata
 
     def estimate_size(self, total_duration):
@@ -74,11 +62,10 @@ class AnalyzeTrackDB:
         total_size = 0
         total_duration = 0
         mp3_count = 0
-        abrupt_end_count = 0
         md5_hashes = {}
         name_duplicates = {}
 
-        self.log("🔍 Searching for MP3 files...\n")
+        self.log("🔍 Searching for MP3 files with corresponding JSON metadata...\n")
 
         for folder in self.look_folders:
             if not os.path.isdir(folder):
@@ -92,13 +79,16 @@ class AnalyzeTrackDB:
                         continue
 
                     file_path = os.path.join(root, file)
-                    txt_file = os.path.splitext(file_path)[0] + ".txt"
-                    mix_file = os.path.splitext(file_path)[0] + ".mix.json"
+                    json_file = os.path.splitext(file_path)[0] + ".json"
                     file_name = os.path.splitext(file)[0]
-                    has_mix = os.path.exists(mix_file)
-                    mix_emoji = " 🎛️" if has_mix else ""
+                    has_json = os.path.exists(json_file)
+                    json_emoji = " 📄" if has_json else " 📄❌"
 
-                    metadata = self.read_track_metadata(txt_file)
+                    if not has_json:
+                        self.log(f"⚠️ Warning: JSON metadata not found for {file}")
+                        continue
+
+                    metadata = self.read_track_metadata_from_json(json_file)
                     energy = metadata["energy"]
                     mood = metadata["mood"]
                     pop = metadata["pop"]
@@ -106,23 +96,16 @@ class AnalyzeTrackDB:
 
                     duration_seconds, duration_str = self.get_mp3_duration(file_path)
 
-                    abrupt_warning = ""
-                    if self.detect_abrupt_end:
-                        abrupt = self.detect_abrupt_end(file_path)
-                        if abrupt:
-                            abrupt_warning = "🚨"
-                            abrupt_end_count += 1
-
                     md5 = hashlib.md5(open(file_path, 'rb').read()).hexdigest()
                     md5_hashes.setdefault(md5, []).append(file_path)
                     name_duplicates.setdefault(file, []).append(file_path)
 
                     # Format and log metadata
-                    line = f"🎵 {file} [{duration_str}] {abrupt_warning}{mix_emoji}"
-                    if energy is not None: line += f" 🔥:{energy:.1f}"
-                    if mood is not None:   line += f" 😊:{mood:.1f}"
-                    if pop is not None:    line += f" 🎵:{pop:.1f}"
-                    if stars is not None:  line += f" ✨:{int(stars)}"
+                    line = f"- {file} [{duration_str}]{json_emoji}"
+                    if energy is not None: line += f" 🔥{energy:.1f}"
+                    if mood is not None:   line += f" 😊{mood:.1f}"
+                    if pop is not None:    line += f" 🎵{pop:.1f}"
+                    if stars is not None:  line += f" ✨{int(stars)}"
 
                     self.log(line)
 
@@ -138,12 +121,8 @@ class AnalyzeTrackDB:
                     total_duration += duration_seconds
                     mp3_count += 1
 
-        self.log(f"\n💾 Saving meta file: {self.output_json}")
-        with open(self.output_json, "w", encoding="utf-8") as json_file:
-            json.dump(self.track_data, json_file, indent=4, ensure_ascii=False)
-
         self.log("\n=== Summary ===")
-        self.log(f"🎼 Total MP3 files found: {mp3_count}")
+        self.log(f"🎼 Total MP3 files analyzed (with JSON metadata): {mp3_count}")
         self.log(f"💾 Total Space Occupied: {total_size / (1024 * 1024):.2f} MB")
         self.log(f"⏱️ Total Duration: {total_duration // 3600:02d}:{(total_duration % 3600) // 60:02d}:{total_duration % 60:02d}")
 
@@ -159,15 +138,18 @@ class AnalyzeTrackDB:
             count = 1
             for group in md5_duplicates:
                 for i in range(len(group) - 1):
-                    self.log(f"{count}. \"{group[i]}\" and \"{group[i+1]}\"")
+                    self.log(f"{count}. \"{group[i]}\" and \"{group[i+1]}\" (Same MD5)")
                     count += 1
             for group in name_duplicates_filtered:
                 for i in range(len(group) - 1):
-                    self.log(f"{count}. \"{group[i]}\" and \"{group[i+1]}\"")
+                    self.log(f"{count}. \"{group[i]}\" and \"{group[i+1]}\" (Same Name)")
                     count += 1
 
         elapsed = time.time() - start_time
         self.log(f"\n🕒 Execution Time: {int(elapsed // 3600):02d}:{int((elapsed % 3600) // 60):02d}:{int(elapsed % 60):02d}")
-        self.log("\n✅ Finished processing all files.")
+        self.log("\n✅ Finished analyzing files.")
+        print(f"Log saved to {self.output_txt}")
 
         self.write_log_file()
+
+ 

@@ -1,24 +1,364 @@
-🔍 Searching for MP3 files...
+🔍 Searching for MP3 files with corresponding JSON metadata...
 
-📂 Searching in: d:\projects\dev\ScriptUtils\UdioSources/tracks
-🎵 Ambient Echoes 1.mp3 [1:59]  🎛️ 🔥:0.5 😊:0.5 🎵:0.5 ✨:2
-🎵 Ambient Echoes 2.mp3 [2:04]  🎛️ 🔥:0.6 😊:0.5 🎵:0.4 ✨:2
-🎵 Ambient Reflections 1.mp3 [2:11]  🔥:0.5 😊:0.6 🎵:0.4 ✨:2
-🎵 Ambient Reflections 2.mp3 [2:11]  🔥:0.5 😊:0.4 🎵:0.4 ✨:2
-🎵 Ambient Reverie 1.mp3 [2:11]  🔥:0.5 😊:0.5 🎵:0.4 ✨:1
-🎵 Bittersweet dream 1.mp3 [2:11]  🎛️ 🔥:0.3 😊:0.4 🎵:0.3 ✨:1
-
-💾 Saving meta file: d:\projects\dev\ScriptUtils\ScriptUtils/UserScriptsExamples/UdioAnalyzeTrackOutput/tracks_meta.json
+📂 Searching in: d:/projects/dev/target-one/SoundSources/udio/tracks
+- Ambient Echoes 1.mp3 [1:59] 📄 🔥0.5 😊0.5 🎵0.5 ✨2
+- Ambient Echoes 2.mp3 [2:04] 📄 🔥0.6 😊0.5 🎵0.4 ✨2
+- Ambient Reflections 1.mp3 [2:11] 📄 🔥0.5 😊0.6 🎵0.4 ✨2
+- Ambient Reflections 2.mp3 [2:11] 📄 🔥0.5 😊0.4 🎵0.4 ✨2
+- Ambient Reverie 1.mp3 [2:11] 📄 🔥0.5 😊0.5 🎵0.4 ✨1
+- Bittersweet dream 1.mp3 [2:11] 📄 🔥0.3 😊0.4 🎵0.3 ✨1
+- Depths of Tranquility 1.mp3 [2:11] 📄 🔥0.2 😊0.5 🎵0.2 ✨2
+- Digital Dreams 1.mp3 [2:03] 📄 🔥0.8 😊0.6 🎵0.4 ✨2
+- Digital Dreams 10.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Dreams 11.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Dreams 2.mp3 [1:53] 📄 🔥0.5 😊0.5 🎵0.4 ✨1
+- Digital Dreams 3.mp3 [1:51] 📄 🔥0.4 😊0.5 🎵0.4 ✨1
+- Digital Dreams 4.mp3 [2:05] 📄 🔥0.4 😊0.5 🎵0.4 ✨1
+- Digital Dreams 5.mp3 [2:05] 📄 🔥0.2 😊0.4 🎵0.2 ✨1
+- Digital Dreams 6.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Dreams 7.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Dreams 8.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Dreams 9.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Dreamscape 1.mp3 [2:01] 📄 🔥0.5 😊0.6 🎵0.5 ✨2
+- Digital Dreamscape 10.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Dreamscape 11.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Dreamscape 12.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Dreamscape 2.mp3 [2:11] 📄 🔥0.8 😊0.6 🎵0.5 ✨3
+- Digital Dreamscape 3.mp3 [1:59] 📄 🔥0.5 😊0.6 🎵0.3 ✨1
+- Digital Dreamscape 4.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Dreamscape 5.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Dreamscape 6.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Dreamscape 7.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Dreamscape 8.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Dreamscape 9.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Dreamscape remix v2 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Drift 1.mp3 [2:00] 📄 🔥0.6 😊0.6 🎵0.5 ✨3
+- Digital Drift 2.mp3 [2:02] 📄 🔥0.7 😊0.5 🎵0.5 ✨3
+- Digital Drift 3.mp3 [2:04] 📄 🔥0.4 😊0.5 🎵0.3 ✨1
+- Digital Drift 4.mp3 [1:59] 📄 🔥0.5 😊0.5 🎵0.4 ✨1
+- Digital Drift 5.mp3 [2:05] 📄 🔥0.3 😊0.4 🎵0.3 ✨1
+- Digital Drift 6.mp3 [1:24] 📄 🔥0.4 😊0.4 🎵0.3 ✨1
+- Digital Drift 7.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Dusk 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Echoes 1.mp3 [1:49] 📄 🔥0.4 😊0.4 🎵0.4 ✨1
+- Digital Echoes 2.mp3 [2:05] 📄 🔥0.4 😊0.5 🎵0.4 ✨1
+- Digital Echoes 3.mp3 [1:59] 📄 🔥0.4 😊0.4 🎵0.5 ✨1
+- Digital Echoes 4.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Echoes 5.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Echoes 6.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Fractures 1.mp3 [2:11] 📄 🔥0.6 😊0.5 🎵0.4 ✨1
+- Digital Horizon 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Horizon 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Horizons 1.mp3 [1:53] 📄 🔥0.5 😊0.6 🎵0.4 ✨2
+- Digital Horizons 2.mp3 [2:03] 📄 🔥0.3 😊0.4 🎵0.3 ✨1
+- Digital Horizons 3.mp3 [2:11] 📄 🔥0.4 😊0.5 🎵0.4 ✨1
+- Digital Horizons 4.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Horizons 5.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Mirage 1.mp3 [2:11] 📄 🔥0.4 😊0.5 🎵0.4 ✨2
+- Digital Mirage 2.mp3 [2:11] 📄 🔥0.3 😊0.5 🎵0.4 ✨2
+- Digital Mirage 3.mp3 [2:11] 📄 🔥0.4 😊0.5 🎵0.4 ✨2
+- Digital Mirage 4.mp3 [2:11] 📄 🔥0.5 😊0.4 🎵0.4 ✨1
+- Digital Oasis 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Oasis.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Reverie 1.mp3 [2:11] 📄 🔥0.6 😊0.6 🎵0.6 ✨3
+- Digital Reverie 10.mp3 [2:11] 📄 🔥0.4 😊0.7 🎵0.5 ✨3
+- Digital Reverie 11.mp3 [2:11] 📄 🔥0.5 😊0.6 🎵0.5 ✨1
+- Digital Reverie 12.mp3 [2:11] 📄 🔥0.3 😊0.4 🎵0.3 ✨1
+- Digital Reverie 13.mp3 [1:55] 📄 🔥0.3 😊0.4 🎵0.3 ✨1
+- Digital Reverie 14.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Reverie 15.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Reverie 16.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Reverie 17.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Reverie 18.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Reverie 19.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Reverie 2.mp3 [2:11] 📄 🔥0.5 😊0.4 🎵0.3 ✨2
+- Digital Reverie 20.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Reverie 21.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Reverie 22.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Reverie 23.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Reverie 24.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Reverie 3.mp3 [2:11] 📄 🔥0.4 😊0.4 🎵0.3 ✨1
+- Digital Reverie 4.mp3 [2:11] 📄 🔥0.3 😊0.5 🎵0.3 ✨1
+- Digital Reverie 5.mp3 [2:11] 📄 🔥0.6 😊0.4 🎵0.3 ✨1
+- Digital Reverie 6.mp3 [2:01] 📄 🔥0.6 😊0.3 🎵0.2 ✨1
+- Digital Reverie 7.mp3 [1:59] 📄 🔥0.4 😊0.4 🎵0.3 ✨1
+- Digital Reverie 8.mp3 [2:11] 📄 🔥0.3 😊0.5 🎵0.4 ✨2
+- Digital Reverie 9.mp3 [2:11] 📄 🔥0.3 😊0.3 🎵0.3 ✨1
+- Digital Serenity 1.mp3 [2:11] 📄 🔥0.4 😊0.6 🎵0.7 ✨3
+- Digital Serenity 10.mp3 [2:11] 📄 🔥0.4 😊0.4 🎵0.4 ✨1
+- Digital Serenity 11.mp3 [2:11] 📄 🔥0.6 😊0.6 🎵0.4 ✨1
+- Digital Serenity 12.mp3 [2:05] 📄 🔥0.6 😊0.5 🎵0.5 ✨1
+- Digital Serenity 13.mp3 [1:59] 📄 🔥0.4 😊0.5 🎵0.3 ✨1
+- Digital Serenity 14.mp3 [2:11] 📄 🔥0.5 😊0.5 🎵0.4 ✨1
+- Digital Serenity 15.mp3 [1:55] 📄 🔥0.5 😊0.6 🎵0.5 ✨1
+- Digital Serenity 16.mp3 [2:03] 📄 🔥0.5 😊0.5 🎵0.4 ✨1
+- Digital Serenity 17.mp3 [1:40] 📄 🔥0.5 😊0.6 🎵0.4 ✨1
+- Digital Serenity 18.mp3 [2:11] 📄 🔥0.6 😊0.6 🎵0.5 ✨1
+- Digital Serenity 19.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Serenity 2.mp3 [2:03] 📄 🔥0.3 😊0.4 🎵0.3 ✨1
+- Digital Serenity 20.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Serenity 21.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Serenity 22.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Serenity 23.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Serenity 24.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Digital Serenity 3.mp3 [2:00] 📄 🔥0.5 😊0.5 🎵0.4 ✨1
+- Digital Serenity 4.mp3 [2:11] 📄 🔥0.4 😊0.5 🎵0.4 ✨2
+- Digital Serenity 5.mp3 [2:05] 📄 🔥0.6 😊0.5 🎵0.4 ✨1
+- Digital Serenity 6.mp3 [2:11] 📄 🔥0.4 😊0.5 🎵0.4 ✨1
+- Digital Serenity 7.mp3 [1:59] 📄 🔥0.4 😊0.5 🎵0.4 ✨2
+- Digital Serenity 8.mp3 [1:59] 📄 🔥0.5 😊0.5 🎵0.4 ✨2
+- Digital Serenity 9.mp3 [2:11] 📄 🔥0.5 😊0.5 🎵0.5 ✨2
+- Digital Solitude.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dream State 1.mp3 [2:11] 📄 🔥0.4 😊0.4 🎵0.3 ✨1
+- Dream State 2.mp3 [2:11] 📄 🔥0.3 😊0.4 🎵0.3 ✨1
+- Dream State 3.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dream State 4.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dream State 5.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dream State 6.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dream State 7.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreaming in Ambient 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreaming in Distortion 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreaming in Pixels 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamlike Frequencies 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamlike Horizons 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamlike Reflections 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamscape 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamscape Echoes 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamscape Echoes 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamscape Echoes 3.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamscape Echoes 4.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamscape Embrace 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamscape Flow 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamscape Horizons 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamscape Horizons 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamscape Retreat 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamscape Wanderer 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamscapes 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamscapes 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamscapes of Tomorrow 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamstate 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Dreamstate Echoes 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Drifting Thoughts 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes in Serenity 1.mp3 [2:07] 📄 🔥0.4 😊0.4 🎵0.4 ✨1
+- Echoes in Serenity 2.mp3 [1:59] 📄 🔥0.4 😊0.4 🎵0.4 ✨1
+- Echoes in the Pixel 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes of Reflection 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes of Serenity 1.mp3 [1:55] 📄 🔥0.4 😊0.6 🎵0.4 ✨2
+- Echoes of Serenity 10.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes of Serenity 11.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes of Serenity 2.mp3 [2:11] 📄 🔥0.5 😊0.6 🎵0.5 ✨2
+- Echoes of Serenity 3.mp3 [2:11] 📄 🔥0.4 😊0.5 🎵0.4 ✨2
+- Echoes of Serenity 4.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes of Serenity 5.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes of Serenity 6.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes of Serenity 7.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes of Serenity 8.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes of Serenity 9.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes of the Deep 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes of the Digital Realm 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes of the Digital Realm 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes of the Machine 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes of the Unknown 1.mp3 [2:06] 📄 🔥0.3 😊0.4 🎵0.4 ✨1
+- Echoes of the Unknown 2.mp3 [2:06] 📄 🔥0.3 😊0.4 🎵0.4 ✨1
+- Echoes of the Unseen 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes of the Void 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes of the Void 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes of Tomorrow 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoes of Tranquility 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoing Silence 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoing Silence 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoing Silence 3.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Echoing Silence 4.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Elysian Dreams 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Elysian Drift 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Dreams 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Dreams 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Dreams 3.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Dreams 4.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Dreams 5.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Dreams 6.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Dreamscape 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Dreamscape 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 10.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 11.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 12.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 13.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 14.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 15.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 16.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 17.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 18.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 19.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 20.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 21.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 22.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 23.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 24.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 25.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 26.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 27.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 28.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 29.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 3.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 30.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 31.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 32.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 33.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 34.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 35.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 36.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 37.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 38.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 39.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 4.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 40.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 5.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 6.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 7.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 8.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Drift 9.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Echoes 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Echoes 10.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Echoes 11.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Echoes 12.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Echoes 13.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Echoes 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Echoes 3.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Echoes 4.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Echoes 5.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Echoes 6.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Echoes 7.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Echoes 8.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Echoes 9.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Escape 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Escape 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Escape 3.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Escape 4.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Flow 1.mp3 [2:11] 📄 🔥0.4 😊0.5 🎵0.4 ✨1
+- Ethereal Flow 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Flow 3.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Horizons 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Horizons 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Horizons 3.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Journey 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Journey 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Journey 3.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Journey 4.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Landscapes 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Landscapes 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Landscapes 3.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Landscapes 4.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Landscapes 5.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Landscapes 6.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Pixels 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Pulse 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Realm 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Reflections 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Reflections 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Reflections 3.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Reflections 4.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Reflections 5.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Reverie 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Reverie 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Reverie 3.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Reverie 4.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Spaces 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Vibes 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Vibes 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Vibes 3.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Vibes 4.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Vibes 5.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Waves 6.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Waves 7.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Waves 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Waves 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethereal Waves 3.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethernal Drift 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Ethernal Drift 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Fading Bytes 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Fading Echoes 1.mp3 [2:11] 📄 🔥0.6 😊0.6 🎵0.5 ✨2
+- Fading Echoes 2.mp3 [2:11] 📄 🔥0.3 😊0.4 🎵0.2 ✨2
+- Fading Memories 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Fleeting Echoes 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Fleeting Moments 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Fractured Realities 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Fractured Realities 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Fractured Signals 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Fragmented Dreams 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Fragmented Dreams 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Fragmented Echoes 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Fragmented Moments 1.mp3 [2:10] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Fragmented Moments 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Fragmented Moments 3.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Fragmented Realities 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Fragments of Serenity 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Fragments of Time 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Glitch in the Matrix 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Glitched Horizons 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Hypnotic Dreams 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Hypnotic Drift 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Hypnotic Drift 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Infinite Horizons 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Infinite Horizons 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Liminal Spaces 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Lucid Whispers 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Mellow Echoes 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Neon Dreams 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Neon Dreams 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Neon Reflections 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Neon Reverie 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Pixelated Dreams 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Pixelated Dreams 10.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Pixelated Dreams 2.mp3 [2:11] 📄 🔥0.4 😊0.4 🎵0.4 ✨2
+- Pixelated Dreams 3.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Pixelated Dreams 4.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Pixelated Dreams 5.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Pixelated Dreams 6.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Pixelated Dreams 7.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Pixelated Dreams 8.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Pixelated Dreams 9.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Quiet Reflections 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Quiet Reflections 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Serene Atmospheres 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Serene Echoes 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Serene Echoes 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Serene Echoes 3.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Serene Echoes 4.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Serene Frequencies 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Serene Horizons 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Serene Illusions 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Serene Illusions 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Serene Reverie 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Serene Shadows 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Silent Echoes 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Silent Echoes 2.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Sonic Reverie 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Subtle Echoes 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Subtle Reflections 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Tranquil Horizons 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Transcendent Moments 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Urban Mirage 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Urban Reflections 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Urban Serenity 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Veil of Illusion 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Virtual Dreamscape 1.mp3 [2:11] 📄 🔥0.4 😊0.4 🎵0.3 ✨1
+- Virtual Dreamscape 2.mp3 [2:11] 📄 🔥0.4 😊0.4 🎵0.3 ✨1
+- Virtual Serenity 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Whispers of Solitude 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
+- Whispers of the Digital Realm 1.mp3 [2:11] 📄 🔥0.0 😊0.0 🎵0.0 ✨0
 
 === Summary ===
-🎼 Total MP3 files found: 6
-💾 Total Space Occupied: 17.59 MB
-⏱️ Total Duration: 00:12:47
+🎼 Total MP3 files analyzed (with JSON metadata): 347
+💾 Total Space Occupied: 1032.56 MB
+⏱️ Total Duration: 12:29:57
 
 📏 Estimated Total Size at Different Bitrates:
-📡 48k: 4.49 MB
-📡 128k: 11.98 MB
+📡 48k: 263.65 MB
+📡 128k: 703.08 MB
+📡 192k: 1054.62 MB
 
-🕒 Execution Time: 00:00:00
+🕒 Execution Time: 00:00:01
 
-✅ Finished processing all files.
+✅ Finished analyzing files.
