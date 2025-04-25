@@ -8,7 +8,6 @@ class ConfigManager:
         self.user_config_path = os.path.join(base_dir, "Config", "user_config.json")
         self.config = {}        
         self.load_config()
-        self.log_level = self.config["log_level"]
         
     def load_config(self):
         self.config = self.load_json(self.default_config_path)
@@ -26,16 +25,10 @@ class ConfigManager:
             return json.load(file)
 
     def override_config(self, user_config):
-        for key, value in user_config.items():
-            if key == "log_level":
-                self.log_level = value
+        for key, value in user_config.items():            
             self.config[key] = value
 
-    def log_config(self):
-        if self.log_level in ["minimum", "balanced"]:
-            print("Configuration loaded.")
-        elif self.log_level == "maximum":
-            self.print()
+ 
             
     def print(self):
         print("\nFinal Merged Configuration:")

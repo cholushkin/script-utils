@@ -1,4 +1,4 @@
 {
-    "log_level": "maximum",
+    "log_level": "verbose",
     "UnityProjectDirectory": "Unity/GameName"
 }
