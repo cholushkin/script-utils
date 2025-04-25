@@ -5,5 +5,5 @@ from Core.Udio.AddNewTracks import AddNewTracks
 AddNewTracks( 
     source_directory = r"UdioSources\UdioDownload", 
     track_target_path = r"UdioSources\tracks",
-    move_files = False
+    move_files = True
 ).run()

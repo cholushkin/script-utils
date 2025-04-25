@@ -1,25 +1,22 @@
 import os
+import sys
+import io
 import json
 import hashlib
 import time
 from mutagen.mp3 import MP3
 
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+
 class AnalyzeTrackDB:
-    def __init__(self, look_folders, output_txt, estimate_bitrates):
+    def __init__(self, look_folders, estimate_bitrates):
         self.project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))  # project root
-        self.output_txt = os.path.join(self.project_root, output_txt)
         self.look_folders = [os.path.join(self.project_root, folder) for folder in look_folders]
         self.estimate_bitrates = estimate_bitrates
-        self.logs = []
         self.track_data = []
 
     def log(self, message):
-        self.logs.append(message)
-
-    def write_log_file(self):
-        os.makedirs(os.path.dirname(self.output_txt), exist_ok=True)
-        with open(self.output_txt, 'w', encoding='utf-8') as f:
-            f.write('\n'.join(self.logs))
+        print(message)  # Output directly to console
 
     def get_mp3_duration(self, file_path):
         try:
@@ -103,9 +100,9 @@ class AnalyzeTrackDB:
                     # Format and log metadata
                     line = f"- {file} [{duration_str}]{json_emoji}"
                     if energy is not None: line += f" 🔥{energy:.1f}"
-                    if mood is not None:   line += f" 😊{mood:.1f}"
-                    if pop is not None:    line += f" 🎵{pop:.1f}"
-                    if stars is not None:  line += f" ✨{int(stars)}"
+                    if mood is not None:    line += f" 😊{mood:.1f}"
+                    if pop is not None:     line += f" 🎵{pop:.1f}"
+                    if stars is not None:   line += f" ✨{int(stars)}"
 
                     self.log(line)
 
@@ -148,8 +145,3 @@ class AnalyzeTrackDB:
         elapsed = time.time() - start_time
         self.log(f"\n🕒 Execution Time: {int(elapsed // 3600):02d}:{int((elapsed % 3600) // 60):02d}:{int(elapsed % 60):02d}")
         self.log("\n✅ Finished analyzing files.")
-        print(f"Log saved to {self.output_txt}")
-
-        self.write_log_file()
-
- 

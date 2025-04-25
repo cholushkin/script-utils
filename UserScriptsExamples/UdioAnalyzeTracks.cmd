@@ -1,0 +1,1 @@
+python UdioAnalyzeTracks.py >> UdioAnalyzeTracksOutput\output-log.txt
