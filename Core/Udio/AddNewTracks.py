@@ -2,6 +2,7 @@ import os
 import shutil
 import re
 import sys
+import json
 from collections import defaultdict
 
 # Add Core to path so we can import ConfigManager
@@ -12,6 +13,7 @@ class AddNewTracks:
     """
     Moves or copies MP3 and ZIP file pairs into organized subfolders, handling naming and error conditions.
     All paths are relative to the UserProject root, which is calculated automatically.
+    Also creates a default JSON file for each track.  JSON template is loaded in the run method.
     """
     def __init__(self, source_directory, track_target_path, move_files=True):
         """
@@ -40,6 +42,8 @@ class AddNewTracks:
         self.config_manager = ConfigManager()
         self.config = self.config_manager.load_config()
         self.log_level = self.config.get("log_level", "balanced")
+
+
 
     def log(self, message):
         """Adds a message to the log, respecting the current log level."""
@@ -111,7 +115,28 @@ class AddNewTracks:
 
         return basenames_mp3.intersection(basenames_zip)
 
-    def process_files(self, valid_basenames):
+    def create_track_json(self, folder_name, track_name, json_template):
+        """Creates the track JSON file."""
+        if json_template is None:
+            return
+
+        # Construct the JSON file path.
+        json_file_name = f"{track_name}.json"
+        dest_json_path = os.path.join(self.track_target_path, folder_name, json_file_name)
+
+        # Modify the template
+        updated_template = json_template.copy()
+        updated_template["mix"]["source_path"] = f"{track_name}.zip"
+        updated_template["mix"]["output_file"] = f"{track_name}.mp3"
+
+        try:
+            with open(dest_json_path, 'w', encoding='utf-8') as f:
+                json.dump(updated_template, f, indent=4)
+            self.log(f"📝 Created JSON file: {os.path.join(folder_name, json_file_name)}")
+        except Exception as e:
+            self.log(f"❌ Error: Could not create JSON file '{dest_json_path}': {e}")
+
+    def process_files(self, valid_basenames, json_template):
         """Processes the valid MP3/ZIP file pairs."""
         if not valid_basenames:
             self.log("ℹ️ No MP3/ZIP pairs found in the source directory.")
@@ -180,6 +205,11 @@ class AddNewTracks:
                 self.log(f"➡️ {self.action_word} {source_mp3} to {log_dest_mp3}")
                 self.files_processed_count += 1
 
+                # Create JSON file
+                track_name = f"{folder_name} {next_number}"  # Base name for the track
+                self.create_track_json(folder_name, track_name, json_template)
+
+
                 try:
                     # --- Process ZIP file ---
                     if not os.path.exists(source_zip_full_path):
@@ -220,6 +250,20 @@ class AddNewTracks:
         if not self.ensure_target_root_exists():
             sys.exit(1)
 
+        # Load JSON template
+        json_template_file = "AddNewTracksJsonTemplate.json"  # Default template name
+        template_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), json_template_file) # Gets the directory of the current script
+        if not os.path.exists(template_path):
+            self.log(f"❌ Error: JSON template file not found at '{template_path}'.")
+            json_template = None  # Set to None to prevent errors later
+        else:
+            try:
+                with open(template_path, 'r', encoding='utf-8') as f:
+                    json_template = json.load(f)
+            except json.JSONDecodeError as e:
+                self.log(f"❌ Error: Invalid JSON in template file '{template_path}': {e}")
+                json_template = None
+
         mp3_files, zip_files, basenames_mp3, basenames_zip = self.get_source_files()
         if (mp3_files, zip_files, basenames_mp3, basenames_zip) == (None, None, None, None):
             sys.exit(1)
@@ -228,11 +272,10 @@ class AddNewTracks:
         if valid_basenames is None:
             sys.exit(1)
 
-        self.process_files(valid_basenames)
+        self.process_files(valid_basenames, json_template)
 
         self.log("-" * 30)
         self.log("✅ Processing complete.")
         self.log("📊 Summary:")
         self.log(f"  ✅ {self.count_description}: {self.files_processed_count}")
         self.log(f"  ✅ Subfolders created: {self.folders_created_count}")
- 
