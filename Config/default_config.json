@@ -1,4 +1,4 @@
 {
     "log_level": "verbose",
-    "UnityProjectDirectory": "Unity/GameName"
+    "unity_project_root": "Unity/GameName"
 }
