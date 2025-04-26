@@ -1,5 +1,3 @@
-The `PromptContextCollector` class is a utility designed to collect source code files—selected via directory paths and wildcard patterns—into a consolidated "blob" file. After aggregation, a user-defined prompt is appended based on a template with variable substitution.
-
 Please perform the following:
 
 1. **Review the Code**  
