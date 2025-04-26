@@ -16,7 +16,7 @@ class AddNewTracks:
     All paths are relative to the UserProject root, which is calculated automatically.
     Also creates a default JSON file for each track.  JSON template is loaded in the run method.
     """
-    def __init__(self, source_directory, track_target_path, move_files=True):
+    def __init__(self, source_directory, track_target_path, move_files=True, log_level = None):
         """
         Initializes the AddNewTrack object.
 
@@ -42,6 +42,8 @@ class AddNewTracks:
         self.config_manager = ConfigManager()
         self.config = self.config_manager.load_config()
         self.log_manager = LogManager(self.config.get("log_level", "verbose")) # Initialize LogManager
+        if log_level != None:
+            self.log_manager.globalLogLevel = log_level
 
 
     def ensure_target_root_exists(self):
@@ -261,5 +263,5 @@ class AddNewTracks:
         self.log_manager.log("normal", "-" * 30)
         self.log_manager.log("normal", "✅ Processing complete.")
         self.log_manager.log("normal", "📊 Summary:")
-        self.log_manager.log("normal", f"  ✅ {self.count_description}: {self.files_processed_count}")
+        self.log_manager.log("important", f"  ✅ {self.count_description}: {self.files_processed_count}")
         self.log_manager.log("normal", f"  ✅ Subfolders created: {self.folders_created_count}")
