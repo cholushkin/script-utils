@@ -7,11 +7,10 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 from Core.ConfigManager import ConfigManager
 from Core.LogManager import LogManager
 
-
-def run_blender_export(blender_executable, blend_file, export_directory, unity_axis_conversion, objects_to_export):
+def run_blender_export(blend_file, export_directory, unity_axis_conversion, objects_to_export):
     config = ConfigManager().load_config()
     log = LogManager(config.get("log_level", "normal"))
-
+    blender_executable = config.get("blender_executable")
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 
     script_path = os.path.join(project_root, "ScriptUtils", "Core", "Blender", "export_fbx_object.py")

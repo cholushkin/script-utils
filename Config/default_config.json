@@ -1,5 +1,5 @@
 {
     "log_level": "verbose",
     "unity_project_root": "Unity/GameName",
-    "blender_executable": "C:\\Program Files\\Blender Foundation\\Blender 4.2\\blender.exe"
+    "blender_executable": "C:/Program Files/Blender Foundation/Blender 4.2/blender.exe"
 }
