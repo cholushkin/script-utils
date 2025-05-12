@@ -26,17 +26,16 @@ class PromptContextCollector:
 
     def _resolve_paths(self):
         resolved = set()
-        for pattern in self.directories:
-            abs_pattern = os.path.join(self.project_root, pattern)
-            if os.path.isdir(abs_pattern):
-                resolved.add(abs_pattern)
-            else:
-                dir_part = os.path.dirname(abs_pattern) or "."
-                for root, _, files in os.walk(dir_part):
+
+        # Process directories
+        for directory in self.directories:
+            abs_directory = os.path.join(self.project_root, directory)
+            if os.path.isdir(abs_directory):
+                for root, _, files in os.walk(abs_directory):
                     for file in files:
-                        full_path = os.path.join(root, file)
-                        if fnmatch.fnmatch(full_path, abs_pattern):
-                            resolved.add(os.path.dirname(full_path))
+                        file_path = os.path.join(root, file)
+                        if self._should_include(file_path):
+                            resolved.add(file_path)
 
         # Add specific files
         for file in self.files:
@@ -71,20 +70,18 @@ class PromptContextCollector:
             out.write("// --- Source Blob ---\n\n")
 
             for path in self._resolve_paths():
-                if os.path.isfile(path):
-                    file_path = path
-                    rel_path = os.path.relpath(file_path, self.project_root)
-                    try:
-                        with open(file_path, "r", encoding="utf-8") as src:
-                            out.write(f"// --- Start File: {rel_path} ---\n\n")
-                            out.write(src.read())
-                            out.write(f"\n\n// --- End File: {rel_path} ---\n\n")
-                        self.collected_files.append(rel_path)
-                        print(f"✅ Added: {rel_path}")
-                        collected += 1
-                    except Exception as e:
-                        print(f"❌ Error reading {rel_path}: {e}")
-                        out.write(f"// !!! Error reading file {rel_path}: {e} !!!\n\n")
+                rel_path = os.path.relpath(path, self.project_root)
+                try:
+                    with open(path, "r", encoding="utf-8") as src:
+                        out.write(f"// --- Start File: {rel_path} ---\n\n")
+                        out.write(src.read())
+                        out.write(f"\n\n// --- End File: {rel_path} ---\n\n")
+                    self.collected_files.append(rel_path)
+                    print(f"✅ Added: {rel_path}")
+                    collected += 1
+                except Exception as e:
+                    print(f"❌ Error reading {rel_path}: {e}")
+                    out.write(f"// !!! Error reading file {rel_path}: {e} !!!\n\n")
 
             prompt_text = self._substitute_template()
             out.write("\n" + "-" * 50 + "\n")
