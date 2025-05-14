@@ -29,7 +29,7 @@ class AnalyzeTrackDB:
             return 0, "Unknown"
 
     def read_track_metadata_from_json(self, json_file):
-        metadata = {"energy": None, "mood": None, "pop": None, "stars": None}
+        metadata = {"energy": None, "mood": None, "pop": None, "stars": None, "export": False}
         if os.path.exists(json_file):
             try:
                 with open(json_file, "r", encoding="utf-8") as f:
@@ -41,6 +41,8 @@ class AnalyzeTrackDB:
                             "pop": data["tags"].get("pop"),
                             "stars": data["tags"].get("stars")
                         })
+                    if "export_parameters" in data:
+                        metadata["export"] = data["export_parameters"].get("export", False)
             except Exception as e:
                 self.log(f"⚠️ Error reading {json_file}: {e}")
         return metadata
@@ -90,6 +92,7 @@ class AnalyzeTrackDB:
                     mood = metadata["mood"]
                     pop = metadata["pop"]
                     stars = metadata["stars"]
+                    export = metadata["export"]
 
                     duration_seconds, duration_str = self.get_mp3_duration(file_path)
 
@@ -98,7 +101,7 @@ class AnalyzeTrackDB:
                     name_duplicates.setdefault(file, []).append(file_path)
 
                     # Format and log metadata
-                    line = f"- {file} [{duration_str}]{json_emoji}"
+                    line = f"+ {file} [{duration_str}]{json_emoji}" if export else f"- {file} [{duration_str}]{json_emoji}"
                     if energy is not None: line += f" 🔥{energy:.1f}"
                     if mood is not None:    line += f" 😊{mood:.1f}"
                     if pop is not None:     line += f" 🎵{pop:.1f}"
