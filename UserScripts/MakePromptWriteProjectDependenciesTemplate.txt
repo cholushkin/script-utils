@@ -1,0 +1,21 @@
+
+
+Task: Analyze and Document Unity Project Dependencies
+
+Objective:
+Analyze the dependencies within a Unity project and compile a comprehensive Markdown file with a well-structured table of dependencies. The table should clearly outline the source, dependency name, version (if applicable), URL, and relevant notes or additional information.
+
+**Scope of Analysis:**
+
+1. **Submodules:** Extract dependency information from the `.gitmodules` file.
+2. **Package Manager:** Analyze dependencies listed in the `manifest.json` file.
+3. **NuGet Packages:** Review and document dependencies from the `packages.config` file.
+4. **Manually Added Libraries:** Examine the specified directory `Assets/Libs` by this list of subdirectories: "{additional_subdirectories}" for any libraries not referenced in the previous sources. These may have been manually added from source code.
+
+Output:
+* Create a structured Markdown file with the following sections:
+  * Introduction: Provide a brief overview of the importance of managing dependencies in Unity projects, highlighting how various dependency sources contribute to the project structure.
+  * Dependencies Table: A comprehensive table with columns for Source, Dependency Name, Version/URL, and Notes.
+  * Notes: Include any observations or remarks regarding manual dependencies or notable patterns in the dependency structure.
+
+Ensure clarity and consistency in formatting, adhering to standard Markdown practices.
