@@ -19,16 +19,24 @@ EXPECTED_STEMS = ["bass.wav", "drums.wav", "other.wav", "vocals.wav"]
 DEFAULT_BITRATE = "192k"
 
 class MixTracks:
+    """
+    Processes track configurations from JSON files, mixes audio stems from
+    associated ZIP archives, applies defined effects, and exports the final
+    mix as an MP3. Supports overriding mix parameters via a dictionary
+    and skipping tracks based on configuration.
+    """
     def __init__(self, look_folders, global_log_level=None, mix_override=None):
         """
         Initializes the MixTracks processor.
 
         Args:
             look_folders (list[str]): List of directory paths (relative to project root)
-                                        to search for track subfolders.
+                                      to search for track subfolders.
             global_log_level (str, optional): Desired logging level ('verbose', 'normal', 'important').
-                                            Defaults to config file setting or 'verbose'.
-            mix_override (dict, optional):  A dictionary to override 'mix' section values in the JSON.
+                                              Defaults to config file setting or 'verbose'.
+            mix_override (dict, optional): A dictionary to override 'mix' section values in the JSON.
+                                           Can include "target_wildcard" (list of glob patterns)
+                                           and "json" (dictionary of override values).
         """
         self.project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
         self.look_folders = [os.path.join(self.project_root, folder) for folder in look_folders]
@@ -89,15 +97,15 @@ class MixTracks:
                                 if callable(function):
                                     if name in effects:
                                         self.log_manager.log("important",
-                                                            f"⚠️ Duplicate effect name '{name}' found in {filename}. Overwriting previous.")
+                                                             f"⚠️ Duplicate effect name '{name}' found in {filename}. Overwriting previous.")
                                     effects[name] = function
                                     self.log_manager.log("verbose", f"    ✅ Loaded effect: '{name}' from {filename}")
                                 else:
                                     self.log_manager.log("important",
-                                                        f"⚠️ Item '{name}' in 'effect_name' from {filename} is not callable.")
+                                                         f"⚠️ Item '{name}' in 'effect_name' from {filename} is not callable.")
                         else:
                             self.log_manager.log("important",
-                                                f"⚠️ Effect module {filename} missing 'effect_name' dictionary or it's not a dictionary.")
+                                                 f"⚠️ Effect module {filename} missing 'effect_name' dictionary or it's not a dictionary.")
                     else:
                         self.log_manager.log("important", f"⚠️ Could not create module spec for {filename}")
 
@@ -109,7 +117,7 @@ class MixTracks:
     def process_track(self, track_json_path):
         """
         Processes a single track based on its JSON configuration file.
-        Returns True on success, False on failure/skip for this track.
+        Returns True on success, "ignored" if explicitly ignored, False on error.
         """
         self.log_manager.log("normal", f"\n▶️ Processing track from JSON: {track_json_path}")
         config_file_dir = os.path.dirname(track_json_path)
@@ -138,22 +146,29 @@ class MixTracks:
         if self.mix_override:
             # Check for target_wildcard
             target_wildcards = self.mix_override.get("target_wildcard", [])
+            apply_override = False
             if target_wildcards:
                 base_name = os.path.basename(track_json_path)
                 for wildcard in target_wildcards:
                     if fnmatch(base_name, wildcard):
-                        self.log_manager.log("verbose", f"   ✅ Applying override for target_wildcard: {wildcard} on {base_name}")
-                        track_config.update(self.mix_override.get("json", {}))  # Override the mix section
+                        self.log_manager.log("verbose", f"    ✅ Matched target_wildcard '{wildcard}' for {base_name}. Applying override.")
+                        apply_override = True
                         break  # Apply only once if matched
-            else: # apply if no wildcards
-                track_config.update(self.mix_override.get("json", {}))  # Override the mix section
+            else: # apply if no wildcards specified in override
+                 self.log_manager.log("verbose", f"    ✅ No target_wildcard specified in override. Applying override to {os.path.basename(track_json_path)}.")
+                 apply_override = True
+
+            if apply_override:
+                 # Use a copy to avoid modifying the original dictionary while iterating or updating
+                 override_json_data = self.mix_override.get("json", {}).copy()
+                 track_config.update(override_json_data) # Override the mix section
 
 
-        # --- Check Ignore Flag ---
+        # --- Check Ignore Flag (after overrides) ---
         if track_config.get("ignore", False):
             output_name = track_config.get('output_file', os.path.basename(track_json_path).replace('.json', '.mp3'))
-            self.log_manager.log("normal", f"⏭️ Skipping track {output_name} (ignore flag set in JSON)")
-            return False  # Skipped, not a processing error
+            self.log_manager.log("normal", f"⏭️ Skipping track {output_name} (ignore flag set in JSON after overrides)")
+            return "ignored"  # Indicate explicit skip
 
         # --- Get Paths and Parameters ---
         source_zip_name = track_config.get("source_path")
@@ -191,7 +206,7 @@ class MixTracks:
             track_data = {}
             loaded_stems = []
             missing_stems = []
-            for stem_file in EXPECTED_STEMS:
+            for stem_file in EXPECTED_STEMS:  # Use defined order
                 file_path = os.path.join(temp_folder, stem_file)
                 if os.path.exists(file_path):
                     try:
@@ -201,7 +216,7 @@ class MixTracks:
                     except Exception as e:
                         # Treat loading error as a missing stem for simplicity
                         self.log_manager.log("important",
-                                            f"❌ Error loading stem {stem_file} from {source_zip_path}: {e}")
+                                             f"❌ Error loading stem {stem_file} from {source_zip_path}: {e}")
                         missing_stems.append(f"{stem_file} (Load Error)")
                 else:
                     missing_stems.append(stem_file)
@@ -209,7 +224,7 @@ class MixTracks:
             # --- Strict Stem Check ---
             if missing_stems:
                 self.log_manager.log("important",
-                                    f"❌ Missing required stems in {source_zip_name}: {', '.join(missing_stems)}. Skipping mix.")
+                                     f"❌ Missing required stems in {source_zip_name}: {', '.join(missing_stems)}. Skipping mix.")
                 return False  # Quit processing this track due to missing stems
 
             self.log_manager.log("verbose", f"    🔊 All expected stems loaded: {', '.join(loaded_stems)}")
@@ -227,26 +242,26 @@ class MixTracks:
                         if target_track:
                             if target_track in track_data:
                                 self.log_manager.log("verbose",
-                                                    f"     Applying '{effect_name}' to {target_track} with params: {params_for_effect}")
+                                                     f"      Applying '{effect_name}' to {target_track} with params: {params_for_effect}")
                                 try:
                                     track_data[target_track] = effect_function(track_data[target_track],
-                                                                            **params_for_effect)
+                                                                               **params_for_effect)
                                 except Exception as e:
                                     self.log_manager.log("important",
-                                                        f"❌ Error applying effect '{effect_name}' to {target_track}: {e}\n{traceback.format_exc()}")
+                                                         f"❌ Error applying effect '{effect_name}' to {target_track}: {e}\n{traceback.format_exc()}")
                                     # Decide if error is fatal for the track: return False
                             else:
                                 self.log_manager.log("important",
-                                                    f"⚠️ Target track '{target_track}' for effect '{effect_name}' not found. Skipping effect.")
+                                                     f"⚠️ Target track '{target_track}' for effect '{effect_name}' not found. Skipping effect.")
                         else:
                             self.log_manager.log("verbose",
-                                                f"    Applying '{effect_name}' to all stems with params: {params_for_effect}")
+                                                 f"      Applying '{effect_name}' to all stems with params: {params_for_effect}")
                             for key in list(track_data.keys()):
                                 try:
                                     track_data[key] = effect_function(track_data[key], **params_for_effect)
                                 except Exception as e:
                                     self.log_manager.log("important",
-                                                        f"❌ Error applying effect '{effect_name}' to {key}: {e}\n{traceback.format_exc()}")
+                                                         f"❌ Error applying effect '{effect_name}' to {key}: {e}\n{traceback.format_exc()}")
                                     # Decide if error is fatal for the track: return False
                     else:
                         self.log_manager.log("important", f"⚠️ Effect '{effect_name}' not found. Skipping.")
@@ -262,11 +277,16 @@ class MixTracks:
                     if first_stem:
                         merged_audio = track_data[stem_name]
                         first_stem = False
-                        self.log_manager.log("verbose", f"     Base for merge: {stem_name}")
+                        self.log_manager.log("verbose", f"      Base for merge: {stem_name}")
                     else:
                         try:
+                            # Ensure both audio segments have the same frame rate before overlay
+                            if merged_audio.frame_rate != track_data[stem_name].frame_rate:
+                                self.log_manager.log("verbose", f"        Resampling {stem_name} to match base frame rate {merged_audio.frame_rate}")
+                                track_data[stem_name] = track_data[stem_name].set_frame_rate(merged_audio.frame_rate)
+
                             merged_audio = merged_audio.overlay(track_data[stem_name])
-                            self.log_manager.log("verbose", f"     Overlayed: {stem_name}")
+                            self.log_manager.log("verbose", f"      Overlayed: {stem_name}")
                         except Exception as e:
                             self.log_manager.log("important", f"❌ Error overlaying stem {stem_name}: {e}")
                             return False  # Treat overlay error as fatal for this mix
@@ -274,22 +294,23 @@ class MixTracks:
             # Export final MP3
             if merged_audio:
                 self.log_manager.log("normal",
-                                    f"    💾 Exporting final MP3: {output_mp3_path} (Bitrate: {bitrate})")
+                                     f"    💾 Exporting final MP3: {output_mp3_path} (Bitrate: {bitrate})")
                 try:
                     os.makedirs(os.path.dirname(output_mp3_path), exist_ok=True)
                     merged_audio.export(output_mp3_path, format="mp3", bitrate=bitrate)
                     self.log_manager.log("important", f"✅ Successfully exported: {output_mp3_name}")
                 except Exception as e:
                     self.log_manager.log("important",
-                                        f"❌ Error exporting MP3 {output_mp3_path}: {e}\n{traceback.format_exc()}")
+                                         f"❌ Error exporting MP3 {output_mp3_path}: {e}\n{traceback.format_exc()}")
                     return False  # Export failed
             else:
                 self.log_manager.log("important",
-                                    f"⚠️ No audio data was successfully merged for {output_mp3_name}. Skipping export.")
+                                     f"⚠️ No audio data was successfully merged for {output_mp3_name}. Skipping export.")
                 return False  # Nothing to export is a failure condition
 
         self.log_manager.log("verbose", f"    🧹 Cleaned up temporary files for {source_zip_name}")
         return True  # Indicate success for this track
+
 
     def run(self):
         """Finds and processes all track JSON files."""
@@ -297,6 +318,8 @@ class MixTracks:
         self.log_manager.log("important", "🚀 Starting MixTracks Processing")
         self.log_manager.log("important", f"Project Root: {self.project_root}")
         self.log_manager.log("important", f"Searching Folders: {self.look_folders}")
+        if self.mix_override:
+             self.log_manager.log("important", f"Mix Override Applied: {self.mix_override}")
         self.log_manager.log("important", "=" * 40)
 
         track_json_files = self._find_track_json_files()
@@ -308,39 +331,17 @@ class MixTracks:
         self.log_manager.log("important", f"ℹ️ Found {len(track_json_files)} potential track JSON files to process.")
 
         success_count = 0
-        error_count = 0  # Includes skips due to missing files, JSON errors, mix errors
-        skipped_explicitly_count = 0  # Only for "ignore: true"
+        error_count = 0
+        skipped_explicitly_count = 0
 
         for json_file in track_json_files:
-            try:
-                # --- Check skip based on export_parameters ---
-                should_process = True
-                try:
-                    with open(json_file, 'r', encoding='utf-8') as f_check:
-                        check_data = json.load(f_check)
-
-                    # Check ignore flag first
-                    mix_params = check_data.get("mix", {})
-                    if mix_params.get("ignore", False) is True:
-                        base_name = os.path.basename(json_file)
-                        self.log_manager.log("normal", f"⏭️ Skipping {base_name} ('ignore': true in 'mix')")
-                        skipped_explicitly_count += 1
-                        should_process = False
-
-                except Exception as json_read_error:
-                    self.log_manager.log("important",
-                                        f"⚠️ Could not pre-read JSON for skip checks {json_file}: {json_read_error}. Will attempt full processing.")
-                    # Proceed to process_track which will handle the error properly
-
-                if should_process:
-                    if self.process_track(json_file):
-                        success_count += 1
-                    else:
-                        error_count += 1  # Count errors/skips during processing
-
-            except Exception as e:
-                self.log_manager.log("important",
-                                    f"💥 UNHANDLED CRITICAL ERROR during loop for {json_file}: {e}\n{traceback.format_exc()}")
+            # Call process_track for each file and handle its return value
+            result = self.process_track(json_file)
+            if result is True:
+                success_count += 1
+            elif result == "ignored":
+                skipped_explicitly_count += 1
+            else: # result is False (an error occurred during processing)
                 error_count += 1
 
         self.log_manager.log("important", "=" * 40)
