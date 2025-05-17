@@ -10,20 +10,32 @@ from Core.LogManager import LogManager
 
 
 class ExportTracks:
-    def __init__(self, look_folders, unity_dest_path, global_log_level=None):
+    """
+    Exports track files (MP3 and associated metadata JSON) from specified
+    source folders to a Unity project's asset path. It reads track
+    configurations from JSON files, copies the corresponding audio files,
+    and creates a simplified metadata JSON file for use within Unity,
+    including track tags and the music configuration name.
+    """
+    def __init__(self, look_folders, unity_dest_path, music_configuration, global_log_level=None):
         """
         Initializes the ExportTracks class.
 
         Args:
             look_folders (list): A list of folders to search for track files.
             unity_dest_path (str): The destination path within the Unity project
-                                    to copy the tracks to.
+                                     to copy the tracks to. This path is relative
+                                     to the Unity project root configured in config.json.
+            music_configuration (str): The file name of the music configuration scriptable object
+                                       where track metas will be added. This will be included in the
+                                       metadata JSON for each track.
             global_log_level (str, optional): The global log level
-                                    ("important", "normal", "verbose", "disabled").
-                                    If None, it defaults to the value in the config file.
+                                     ("important", "normal", "verbose", "disabled").
+                                     If None, it defaults to the value in the config file.
         """
         self.project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
         self.look_folders = [os.path.join(self.project_root, folder) for folder in look_folders]
+        self.music_configuration = music_configuration # Store the music configuration name
 
         # Initialize ConfigManager
         self.config_manager = ConfigManager()
@@ -38,11 +50,11 @@ class ExportTracks:
         if not self.unity_project_root:
             self.log_manager.log(
                 "important",
-                "❌ Unity project root is not set in the configuration.  Please set the 'unity_project_root' in config.json.",
+                "❌ Unity project root is not set in the configuration. Please set the 'unity_project_root' in config.json.",
             )
             sys.exit(1)  # Exit if the Unity project root is not configured
-            
-        self.unity_project_root = os.path.join(self.project_root, self.unity_project_root)            
+
+        self.unity_project_root = os.path.join(self.project_root, self.unity_project_root)
         self.unity_dest_path = os.path.join(self.unity_project_root, unity_dest_path)
         os.makedirs(self.unity_dest_path, exist_ok=True)  # Ensure destination directory exists
 
@@ -120,7 +132,11 @@ class ExportTracks:
 
         # --- Create and save metadata JSON ---
         tags = track_data.get("tags", {})
-        metadata = {"tags": tags}
+        # Construct the metadata dictionary with the new format
+        metadata = {
+            "music_configuration": self.music_configuration,
+            "tags": tags
+        }
         dest_meta_path = os.path.join(self.unity_dest_path, os.path.splitext(source_mp3_name)[0] + ".meta.json")
         try:
             with open(dest_meta_path, "w", encoding="utf-8") as f:
@@ -139,6 +155,7 @@ class ExportTracks:
         self.log_manager.log("important", f"Project Root: {self.project_root}")
         self.log_manager.log("important", f"Searching Folders: {self.look_folders}")
         self.log_manager.log("important", f"Exporting to: {self.unity_dest_path}")
+        self.log_manager.log("important", f"Music Configuration Tag: {self.music_configuration}") # Log the config name
         self.log_manager.log("important", "=" * 40)
 
         track_json_files = self._find_track_files()
