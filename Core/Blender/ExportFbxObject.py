@@ -90,7 +90,7 @@ class ExportFbxObject:
             use_custom_props=True,
             use_selection=True,
             apply_scale_options='FBX_SCALE_UNITS',
-            object_types={'EMPTY', 'MESH'},
+            object_types={'EMPTY', 'MESH', 'ARMATURE'},
             axis_forward=forward_axis,  # Adjust forward axis for Unity
             axis_up=up_axis              # Adjust up axis for Unity
         )
