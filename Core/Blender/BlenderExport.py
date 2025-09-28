@@ -31,6 +31,7 @@ def run_blender_export(blend_file, export_directory, unity_axis_conversion, obje
     ] + objects_to_export
 
     log.log("normal", f"🚀 Running Blender command:\n{' '.join(command)}")
+    log.log("verbose", f"Blender executable : {blender_executable}\n")
 
     try:
         subprocess.run(command, check=True)
