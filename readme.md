@@ -31,8 +31,8 @@ Stores user- or machine-specific settings and environment variables. Useful for 
 
 
 ## Utilities
-- Blender
-- GitSubmoduleManager
-- PromptWithContextUtil
-- BackupUtil 
-- Udio
+- 🎵 Udio -- Mixes audio stems, applies effects (gain, fade, reverb, cut), exports tracks, analyzes MP3 database; ([README](Core/Udio/Udio_Core_README.md))
+- 🧩 Blender Tools -- Exports FBX objects via command line; ([README](Core/Blender/Blender_Core_README.md))
+- 📦 BackupUtil -- Creates ZIP backups with exclude rules; ([README](Core/BackupUtil/BackupUtil_README.md))
+- 🔗 GitSubmoduleManager -- Adds/removes/updates git submodules; ([README](Core/GitSubmoduleManager/GitSubmoduleManager_README.md))
+- 📝 PromptContextCollector -- Collects project files and builds a structured prompt file; ([README](Core/PromptContextCollector/PromptContextCollector_README.md))
