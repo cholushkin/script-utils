@@ -1,5 +1,6 @@
 {
     "log_level": "verbose",
     "unity_project_root": "Unity/TargetOne",
-    "blender_executable": "C:/Program Files/Blender Foundation/Blender 4.2/blender.exe"
+    "blender_executable": "C:/Program Files/Blender Foundation/Blender 4.2/blender.exe",
+    "krita_executable": "C:/Program Files/Krita (x64)/bin/krita.exe"
 }
