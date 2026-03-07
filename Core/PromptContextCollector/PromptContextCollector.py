@@ -42,6 +42,8 @@ class PromptContextCollector:
             abs_file = os.path.join(self.project_root, file)
             if os.path.isfile(abs_file):
                 resolved.add(abs_file)
+            else:
+                print(f"❌ file not found: {file}")
 
         return list(resolved)
 
@@ -53,7 +55,7 @@ class PromptContextCollector:
         for key, value in self.template_vars.items():
             template = template.replace(f"{{{key}}}", str(value))
         return template
-
+        
     def run(self):
         print(f"🛠 Starting PromptContextCollector")
         print(f"📁 Project Root: {self.project_root}")
@@ -65,25 +67,48 @@ class PromptContextCollector:
         print(f"📤 Output Path: {self.output_path}")
         print("-" * 50)
 
+        resolved_paths = self._resolve_paths()
+
         collected = 0
+
         with open(self.output_path, 'w', encoding='utf-8') as out:
+
             out.write("// --- Source Blob ---\n\n")
 
-            for path in self._resolve_paths():
+            # --- Files Included Section ---
+            out.write("Files included:\n")
+            for path in resolved_paths:
                 rel_path = os.path.relpath(path, self.project_root)
+                out.write(f"- {rel_path}\n")
+
+            out.write("\n" + "-" * 50 + "\n\n")
+
+            # --- File Contents ---
+            for path in resolved_paths:
+
+                rel_path = os.path.relpath(path, self.project_root)
+
                 try:
                     with open(path, "r", encoding="utf-8") as src:
                         out.write(f"// --- Start File: {rel_path} ---\n\n")
                         out.write(src.read())
                         out.write(f"\n\n// --- End File: {rel_path} ---\n\n")
+
                     self.collected_files.append(rel_path)
+
                     print(f"✅ Added: {rel_path}")
+
                     collected += 1
+
                 except Exception as e:
+
                     print(f"❌ Error reading {rel_path}: {e}")
+
                     out.write(f"// !!! Error reading file {rel_path}: {e} !!!\n\n")
 
+            # --- Prompt Section ---
             prompt_text = self._substitute_template()
+
             out.write("\n" + "-" * 50 + "\n")
             out.write("// --- Prompt ---\n\n")
             out.write(prompt_text)
