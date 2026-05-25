@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+import shutil
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from Core.LogManager import LogManager
@@ -29,18 +30,24 @@ class GitSubmoduleManager:
                 check=True
             )
             return result.stdout.strip()
+
         except subprocess.CalledProcessError as e:
             self.log_manager.log("important", f"❌ Git error: {' '.join(args)}")
-            self.log_manager.log("important", e.stderr.strip())
+            if e.stderr:
+                self.log_manager.log("important", e.stderr.strip())
             raise
 
     def find_git_root(self):
         current_dir = os.getcwd()
+
         while not os.path.exists(os.path.join(current_dir, ".git")):
             parent_dir = os.path.dirname(current_dir)
+
             if parent_dir == current_dir:
                 raise Exception("Not inside a Git repository.")
+
             current_dir = parent_dir
+
         return current_dir
 
     # -------------------------
@@ -63,16 +70,36 @@ class GitSubmoduleManager:
     def remove_git_submodule(self, submodule_path):
         try:
             os.chdir(self.project_root)
+            submodule_path = os.path.normpath(submodule_path)
 
-            self.run_git(["submodule", "deinit", "-f", submodule_path])
-            self.run_git(["rm", "-f", submodule_path])
+            # -------------------------
+            # SAFE DEINIT (may already be removed)
+            # -------------------------
+            try:
+                self.run_git(["submodule", "deinit", "-f", submodule_path])
+            except subprocess.CalledProcessError:
+                self.log_manager.log("normal", f"ℹ️ Submodule not initialized or already removed: {submodule_path}")
 
+            # -------------------------
+            # SAFE REMOVE FROM GIT INDEX
+            # -------------------------
+            try:
+                self.run_git(["rm", "-f", submodule_path])
+            except subprocess.CalledProcessError:
+                self.log_manager.log("normal", f"ℹ️ Submodule already removed from git index: {submodule_path}")
+
+            # -------------------------
+            # CLEAN .git/modules
+            # -------------------------
             modules_path = os.path.join(self.project_root, ".git", "modules", submodule_path)
             if os.path.exists(modules_path):
-                subprocess.run(["rm", "-rf", modules_path], shell=True)
+                shutil.rmtree(modules_path)
 
+            # -------------------------
+            # CLEAN WORKING DIRECTORY
+            # -------------------------
             if os.path.exists(submodule_path):
-                subprocess.run(["rm", "-rf", submodule_path], shell=True)
+                shutil.rmtree(submodule_path)
 
             self.log_manager.log("normal", f"🧹 Submodule removed: {submodule_path}")
 
@@ -83,8 +110,24 @@ class GitSubmoduleManager:
         try:
             self.run_git(["submodule", "update", "--init", submodule_path])
             self.log_manager.log("normal", f"🔄 Submodule updated: {submodule_path}")
+
         except Exception as e:
             self.log_manager.log("important", f"❌ Failed to update submodule: {e}")
+
+    def submodule_exists(self, path):
+        """Safe check if submodule exists in .gitmodules"""
+        try:
+            if not os.path.exists(os.path.join(self.project_root, ".gitmodules")):
+                return False
+
+            output = self.run_git(
+                ["config", "--file", ".gitmodules", "--get-regexp", "path"]
+            )
+
+            return path in output
+
+        except subprocess.CalledProcessError:
+            return False
 
     # -------------------------
     # Advanced functionality
@@ -92,15 +135,22 @@ class GitSubmoduleManager:
 
     def get_submodules(self):
         """Return list of submodule paths"""
-        output = self.run_git(["config", "--file", ".gitmodules", "--get-regexp", "path"])
-        submodules = []
+        try:
+            output = self.run_git(
+                ["config", "--file", ".gitmodules", "--get-regexp", "path"]
+            )
 
-        for line in output.splitlines():
-            parts = line.strip().split(" ")
-            if len(parts) == 2:
-                submodules.append(parts[1])
+            submodules = []
 
-        return submodules
+            for line in output.splitlines():
+                parts = line.strip().split(" ")
+                if len(parts) == 2:
+                    submodules.append(parts[1])
+
+            return submodules
+
+        except subprocess.CalledProcessError:
+            return []
 
     def get_default_branch(self, submodule_path):
         """Detect default branch (main/master/etc)"""
@@ -110,33 +160,33 @@ class GitSubmoduleManager:
                 cwd=submodule_path
             )
             return ref.replace("origin/", "")
+
         except Exception:
-            return "master"  # fallback
+            return "master"
 
     def checkout_branch(self, submodule_path, branch):
         """Ensure submodule is on a branch (fix detached HEAD)"""
         try:
             self.run_git(["checkout", branch], cwd=submodule_path)
-        except Exception:
-            # create branch if not exists
-            self.run_git(["checkout", "-b", branch, f"origin/{branch}"], cwd=submodule_path)
+
+        except subprocess.CalledProcessError:
+            self.run_git(
+                ["checkout", "-b", branch, f"origin/{branch}"],
+                cwd=submodule_path
+            )
 
     def update_submodule_to_latest(self, submodule_path):
         """Update a single submodule to latest commit"""
         try:
             self.log_manager.log("normal", f"🔄 Updating: {submodule_path}")
 
-            # fetch
             self.run_git(["fetch", "origin"], cwd=submodule_path)
 
-            # detect branch
             branch = self.get_default_branch(submodule_path)
             self.log_manager.log("normal", f"  → branch: {branch}")
 
-            # fix detached HEAD
             self.checkout_branch(submodule_path, branch)
 
-            # pull latest
             self.run_git(["pull", "origin", branch], cwd=submodule_path)
 
         except Exception as e:
@@ -168,7 +218,6 @@ class GitSubmoduleManager:
                 full_path = os.path.join(self.project_root, sub)
                 self.update_submodule_to_latest(full_path)
 
-            # 🔥 THIS IS CRITICAL STEP
             self.log_manager.log("normal", "===> Staging updated submodule pointers")
             self.run_git(["add", "."])
 
