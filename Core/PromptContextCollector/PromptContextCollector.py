@@ -1,17 +1,52 @@
 import os
 import fnmatch
-import re
 
 class PromptContextCollector:
-    def __init__(self, directories, files, includes, ignores, template_path, template_vars, output_path):
+    def __init__(self, directories=None, files=None, includes=None, ignores=None, template_path=None, template_vars=None, output_path="prompt_context.txt"):
         self.project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..",".."))
-        self.directories = directories
-        self.files = files
-        self.includes = includes
-        self.ignores = ignores
-        self.template_path = os.path.join(self.project_root, template_path)
+        
+        print("🔧 Initializing PromptContextCollector...")
+        
+        if directories is None:
+            self.directories = []
+            print("   - directories omitted: defaulting to []")
+        else:
+            self.directories = directories
+
+        if files is None:
+            self.files = []
+            print("   - files omitted: defaulting to []")
+        else:
+            self.files = files
+
+        if includes is None:
+            self.includes = ["*"]
+            print("   - includes omitted: defaulting to ['*']")
+        else:
+            self.includes = includes
+
+        if ignores is None:
+            self.ignores = ["__pycache__/*", "*.pyc", ".git/*"]
+            print("   - ignores omitted: defaulting to ['__pycache__/*', '*.pyc', '.git/*']")
+        else:
+            self.ignores = ignores
+
+        if template_path is None:
+            self.template_path = None
+            print("   - template_path omitted: prompt template substitution will be skipped")
+        else:
+            self.template_path = os.path.join(self.project_root, template_path)
+
+        if template_vars is None:
+            self.template_vars = {}
+            print("   - template_vars omitted: defaulting to {}")
+        else:
+            self.template_vars = template_vars
+
+        if output_path == "prompt_context.txt":
+            print(f"   - output_path omitted: defaulting to '{output_path}'")
+        
         self.output_path = os.path.join(self.project_root, output_path)
-        self.template_vars = template_vars
         self.collected_files = []
 
     def _match_patterns(self, path, patterns):
@@ -48,8 +83,13 @@ class PromptContextCollector:
         return list(resolved)
 
     def _substitute_template(self):
+        # Gracefully handle omitted template_path without raising FileNotFoundError
+        if not self.template_path:
+            return ""
         if not os.path.exists(self.template_path):
-            raise FileNotFoundError(f"Template file not found: {self.template_path}")
+            print(f"⚠️ Template file not found: {self.template_path}. Skipping template substitution.")
+            return ""
+            
         with open(self.template_path, "r", encoding="utf-8") as f:
             template = f.read()
         for key, value in self.template_vars.items():
@@ -57,14 +97,8 @@ class PromptContextCollector:
         return template
         
     def run(self):
-        print(f"🛠 Starting PromptContextCollector")
+        print(f"\n🛠 Starting PromptContextCollector Execution")
         print(f"📁 Project Root: {self.project_root}")
-        print(f"📂 Directories: {self.directories}")
-        print(f"📄 Files: {self.files}")
-        print(f"📄 Includes: {self.includes}")
-        print(f"🚫 Ignores: {self.ignores}")
-        print(f"📜 Template Path: {self.template_path}")
-        print(f"📤 Output Path: {self.output_path}")
         print("-" * 50)
 
         resolved_paths = self._resolve_paths()
@@ -77,6 +111,8 @@ class PromptContextCollector:
 
             # --- Files Included Section ---
             out.write("Files included:\n")
+            if not resolved_paths:
+                out.write("- No files resolved with current parameters.\n")
             for path in resolved_paths:
                 rel_path = os.path.relpath(path, self.project_root)
                 out.write(f"- {rel_path}\n")
@@ -108,10 +144,12 @@ class PromptContextCollector:
 
             # --- Prompt Section ---
             prompt_text = self._substitute_template()
-
-            out.write("\n" + "-" * 50 + "\n")
-            out.write("// --- Prompt ---\n\n")
-            out.write(prompt_text)
+            
+            # Only append prompt section if a template was successfully generated
+            if prompt_text.strip():
+                out.write("\n" + "-" * 50 + "\n")
+                out.write("// --- Prompt ---\n\n")
+                out.write(prompt_text)
 
         print("-" * 50)
         print(f"🎯 Collection complete: {collected} file(s) added.")
